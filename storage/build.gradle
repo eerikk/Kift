@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    testCompile "junit:junit:$junit_version"
+    testCompile "org.mockito:mockito-core:$mockito_version"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_interceptor_version"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit_rxjava_adapter_version"
+    compile "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+}
