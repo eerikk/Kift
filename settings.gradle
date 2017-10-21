@@ -1,1 +1,1 @@
-include ':app', ':storage', ':simplerecyclerview'
+include ':app', ':storage', ':simplerecyclerview', ':simplemvp'

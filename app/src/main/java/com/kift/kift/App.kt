@@ -1,6 +1,7 @@
 package com.kift.kift
 
 import android.app.Application
+import com.kift.storage.StorageProvider
 
 /**
  * Created by Eerik on 23/09/17.
@@ -8,11 +9,11 @@ import android.app.Application
 class App : Application(){
 
     companion object {
-        //TODO
+        lateinit var storageProvider : StorageProvider
     }
 
     override fun onCreate() {
         super.onCreate()
-        println("app created")
+        storageProvider = StorageProvider(this)
     }
 }

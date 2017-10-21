@@ -31,8 +31,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     compile "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    compile "com.kasparpeterson:simplemvp:$simplemvp_version"
 
     compile project(path: ':storage')
+    compile project(path: ':simplerecyclerview')
+    compile project(path: ':simplemvp')
 
 }

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kift.iml" filepath="$PROJECT_DIR$/Kift.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/simplemvp/simplemvp.iml" filepath="$PROJECT_DIR$/simplemvp/simplemvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/simplerecyclerview/simplerecyclerview.iml" filepath="$PROJECT_DIR$/simplerecyclerview/simplerecyclerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/storage/storage.iml" filepath="$PROJECT_DIR$/storage/storage.iml" />
     </modules>
