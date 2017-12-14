@@ -1,7 +1,6 @@
 package com.kift.storage.api
 
 import io.reactivex.Single
-import retrofit2.Response
 import retrofit2.http.GET
 
 /**
@@ -11,5 +10,5 @@ import retrofit2.http.GET
 interface KiftService {
 
     @GET("events")
-    fun getEvents(): Single<Response<EventsResponseSuccess>>
+    fun getEvents(): Single<EventsResponseSuccess>
 }

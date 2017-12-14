@@ -32,4 +32,6 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_interceptor_version"
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit_rxjava_adapter_version"
     compile "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
 }

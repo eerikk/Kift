@@ -1,26 +1,24 @@
 package com.kift.storage.storage
 
-import com.kift.storage.models.Category
+import com.kift.storage.models.DataType
 import com.kift.storage.models.Event
+import com.kift.storage.models.EventsData
 import io.reactivex.Single
 
 /**
  * Created by Eerik on 01/10/17.
  */
-class EventStorageImpl(val localStorage: LocalStorage) : EventsStorage {
+class EventStorageImpl(private val localStorage: LocalStorage) : EventStorage {
 
-    override fun getEvent(id: Long): Single<Event> =
-            Single.just(localStorage.loadList(Event::class.java)
-                    .find { it.id == id } ?: throw EventNotFoundException())
-
-    override fun getAllEvents(): Single<List<Event>> =
-            Single.just(localStorage.loadList(Event::class.java))
-
-    override fun getEvents(category: Category): Single<List<Event>> {
-        val filteredList = getAllEvents().blockingGet()
-                .filter { it.category.contains(category) }
-
-        return Single.just(filteredList)
+    override fun saveEvents(list: List<Event>) {
+        if (list.isNotEmpty())
+            localStorage.saveList(list, Event::class.java)
+        else
+            throw EventListEmptyException()
     }
+
+    override fun getEventsData(): Single<EventsData> =
+            Single.just(EventsData(localStorage.loadList(Event::class.java),
+                    DataType.STORAGE))
 
 }

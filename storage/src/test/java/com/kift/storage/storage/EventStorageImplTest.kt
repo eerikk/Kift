@@ -3,10 +3,9 @@ package com.kift.storage.storage
 import com.kift.storage.helpers.mock
 import com.kift.storage.helpers.mocks.EVENT_DANCE
 import com.kift.storage.helpers.mocks.EVENT_KIFT
-import com.kift.storage.helpers.mocks.EVENT_MULTIPLE_CATEGORIES
 import com.kift.storage.helpers.mocks.EVENT_SPORT
+import com.kift.storage.helpers.verify
 import com.kift.storage.helpers.whenever
-import com.kift.storage.models.Category
 import com.kift.storage.models.Event
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -21,7 +20,8 @@ class EventStorageImplTest {
     val kiftEvent = EVENT_KIFT
     val danceEvent = EVENT_DANCE
     val sportEvent = EVENT_SPORT
-    val multipleCategoriesEvent = EVENT_MULTIPLE_CATEGORIES
+
+    val eventsList = List(2, { kiftEvent })
 
     lateinit var localStorage: LocalStorage
     lateinit var eventStorage: EventStorageImpl
@@ -36,47 +36,30 @@ class EventStorageImplTest {
         whenever(localStorage.loadList(Event::class.java)).thenReturn(eventList)
     }
 
+
     @Test
-    fun getEvent_eventInList() {
-        provideEventsList(listOf(kiftEvent, danceEvent))
-        assertEquals(kiftEvent, eventStorage.getEvent(kiftEvent.id).blockingGet())
+    fun saveEvents_hasEvents() {
+        eventStorage.saveEvents(eventsList)
+        verify(localStorage).saveList(eventsList, Event::class.java)
     }
 
-    @Test(expected = EventNotFoundException::class)
-    fun getEvent_eventNotInList() {
-        provideEventsList(listOf(kiftEvent))
-        eventStorage.getEvent(sportEvent.id).blockingGet()
+    @Test(expected = EventListEmptyException::class)
+    fun saveEvents_emptyList() {
+        eventStorage.saveEvents(emptyList())
     }
+
 
     @Test
     fun getAllEvents() {
         provideEventsList(listOf(kiftEvent, danceEvent))
         assertEquals(listOf(kiftEvent, danceEvent),
-                eventStorage.getAllEvents().blockingGet())
-    }
-
-    @Test
-    fun getEvents_multipleCategory() {
-        provideEventsList(
-                listOf(kiftEvent, danceEvent, multipleCategoriesEvent))
-
-        assertEquals(listOf(kiftEvent, multipleCategoriesEvent),
-                eventStorage.getEvents(Category.KIFT).blockingGet())
-    }
-
-    @Test
-    fun getEvents_singleCategory() {
-        provideEventsList(
-                listOf(kiftEvent, sportEvent, multipleCategoriesEvent))
-
-        assertEquals(listOf(sportEvent),
-                eventStorage.getEvents(Category.SPORT).blockingGet())
+                eventStorage.getEventsData().blockingGet())
     }
 
     @Test
     fun getEvents_noEvents() {
         provideEventsList(emptyList())
-        assertEquals(emptyList<Event>(), eventStorage.getAllEvents().blockingGet())
+        assertEquals(emptyList<Event>(), eventStorage.getEventsData().blockingGet())
     }
 
 }
